@@ -6,8 +6,12 @@ import {
     TextInput,
     TouchableHighlight,
     TouchableOpacity,
-    View
+    View,
+    Button,
+    StyleSheet,
+    Dimensions
 } from 'react-native';
+import { Button as GButton, GooglePlayButton } from "@freakycoder/react-native-button";
 
 import { getName } from '../../app';
 
@@ -258,15 +262,17 @@ class WelcomePage extends AbstractWelcomePage {
         return (
             <LocalVideoTrackUnderlay style = { styles.welcomePage }>
                 <View style = { _headerStyles.page }>
-                    <Header style = { styles.header }>
+                    {/* 导航栏 */}
+                    {/* <Header style = { styles.header }>
                         <TouchableOpacity onPress = { this._onShowSideBar } >
                             <Icon
                                 src = { IconMenu }
                                 style = { _headerStyles.headerButtonIcon } />
                         </TouchableOpacity>
                         <VideoSwitch />
-                    </Header>
-                    <SafeAreaView style = { styles.roomContainer } >
+                    </Header> */}
+                    {/* 输入房间 */}
+                    {/* <SafeAreaView style = { styles.roomContainer } >
                         <View style = { styles.joinControls } >
                             <TextInput
                                 accessibilityLabel = { t(roomnameAccLabel) }
@@ -290,11 +296,64 @@ class WelcomePage extends AbstractWelcomePage {
                                 this._renderHintBox()
                             }
                         </View>
-                    </SafeAreaView>
-                    <WelcomePageLists disabled = { this.state._fieldFocused } />
-                    <SettingsView />
-                    <DialInSummary />
+                    </SafeAreaView> */}
+                    {/* 会议列表 */}
+                    {/* <WelcomePageLists disabled = { this.state._fieldFocused } /> */}
+                    {/* 设置页面 */}
+                    {/* <SettingsView />
+                    <DialInSummary /> */}
+                    <View style = { [
+                        styless.titleView
+                    ] }>
+                        <View style={
+                            styless.containerTopView
+                        }>
+                            <Text style={ styless.titleText }>
+                                { "云会" }
+                            </Text>
+                            <Text style={ styless.contentText }>
+                                { "视频在线通话系统" }
+                            </Text>
+                        </View>
+
+                        <View style={styless.containerBottomView}>
+                            
+                            <GooglePlayButton
+                            text="发起会议"
+                            textColor="rgba(6, 99, 163, 1)"
+                            rippleColor="black"
+                            backgroundColor="white"
+                            width={Dimensions.get('window').width - 60}
+                            borderWidth
+                            />
+                            <View
+                            style={{height:16}}
+                            ></View>
+                            <GooglePlayButton
+                            text="加入会议"
+                            textColor="#fff"
+                            rippleColor="white"
+                            width={Dimensions.get('window').width - 60}
+                            />
+                            <View
+                            style={{height:16}}
+                            ></View>
+                            <Button
+                            style={[styless.buttonView,
+                            ]}
+                            color="rgba(6, 99, 163, 1)"
+                            title="登录"
+                            ></Button>
+                            
+                            <Text
+                            style={{position:"absolute",bottom:40,color:"rgba(78, 88, 110, 1)",fontSize:12}}
+                            >
+                            {'All right reserved by 百视云'}
+                            </Text>
+                        </View>
+                    </View>
                 </View>
+                {/* 侧滑页面 */}
                 <WelcomePageSideBar />
             </LocalVideoTrackUnderlay>
         );
@@ -334,3 +393,41 @@ function _mapStateToProps(state) {
 }
 
 export default translate(connect(_mapStateToProps)(WelcomePage));
+
+const styless = StyleSheet.create({
+    titleText: {
+        color: "white",
+        fontWeight: "bold",
+        fontSize: 40,
+    },
+    contentText: {
+        color: "white",
+        fontWeight: "bold",
+        fontSize: 17,
+        marginTop: 8
+    },
+    titleView: {
+        backgroundColor: "rgba(0,0,0,0)",
+        position: "absolute",
+        width: "100%",
+        height: "100%"
+    },
+    containerTopView: {
+        marginTop: 108,
+        marginLeft: 30,
+    },
+    containerBottomView: {
+        marginLeft: 30,
+        marginRight: 30,
+        height: '35%',
+        position: "absolute",
+        bottom: 0,
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+    },
+    buttonView: {
+        fontSize: 12,
+        fontWeight: "bold"
+    }
+})
