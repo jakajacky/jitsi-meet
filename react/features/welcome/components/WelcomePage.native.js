@@ -12,6 +12,7 @@ import {
     Dimensions
 } from 'react-native';
 import { Button as GButton, GooglePlayButton } from "@freakycoder/react-native-button";
+import GradientButton from "./GradientButton"
 
 import { getName } from '../../app';
 
@@ -318,32 +319,64 @@ class WelcomePage extends AbstractWelcomePage {
 
                         <View style={styless.containerBottomView}>
                             
-                            <GooglePlayButton
+                            {/* <GooglePlayButton
                             text="发起会议"
                             textColor="rgba(6, 99, 163, 1)"
                             rippleColor="black"
                             backgroundColor="white"
                             width={Dimensions.get('window').width - 60}
                             borderWidth
-                            />
+                            /> */}
+                            <GradientButton
+                            text="发起会议"
+                            textColor="rgba(6, 99, 163, 1)"
+                            fontSize={ 15 }
+                            gradientBegin="white"
+                            gradientEnd="white"
+                            radius={ 22 }
+                            width={ Dimensions.get('window').width - 60 }
+                            height={ 44 }
+                            onClick={ function () {
+                                alert('发起会议')
+                            } }
+                            ></GradientButton>
                             <View
                             style={{height:16}}
                             ></View>
-                            <GooglePlayButton
+                            {/* <GooglePlayButton
                             text="加入会议"
                             textColor="#fff"
                             rippleColor="white"
                             width={Dimensions.get('window').width - 60}
-                            />
+                            /> */}
+                            <GradientButton
+                            text="加入会议"
+                            textColor="#fff"
+                            fontSize={ 15 }
+                            radius={ 22 }
+                            width={ Dimensions.get('window').width - 60 }
+                            height={ 44 }
+                            onClick={ function () {
+                                alert('加入会议')
+                            } }
+                            ></GradientButton>
                             <View
                             style={{height:16}}
                             ></View>
-                            <Button
+                            {/* <Button
                             style={[styless.buttonView,
                             ]}
                             color="rgba(6, 99, 163, 1)"
                             title="登录"
-                            ></Button>
+                            ></Button> */}
+                            <GradientButton
+                            text="登录"
+                            fontSize={ 14 }
+                            textColor="#fff"
+                            gradientBegin="rgba(255,255,255,0)"
+                            gradientEnd="rgba(255,255,255,0)"
+                            textDecorationLine="underline"
+                            ></GradientButton>
                             
                             <Text
                             style={{position:"absolute",bottom:40,color:"rgba(78, 88, 110, 1)",fontSize:12}}
