@@ -318,15 +318,6 @@ class WelcomePage extends AbstractWelcomePage {
                         </View>
 
                         <View style={styless.containerBottomView}>
-                            
-                            {/* <GooglePlayButton
-                            text="发起会议"
-                            textColor="rgba(6, 99, 163, 1)"
-                            rippleColor="black"
-                            backgroundColor="white"
-                            width={Dimensions.get('window').width - 60}
-                            borderWidth
-                            /> */}
                             <GradientButton
                             text="发起会议"
                             textColor="rgba(6, 99, 163, 1)"
@@ -343,12 +334,6 @@ class WelcomePage extends AbstractWelcomePage {
                             <View
                             style={{height:16}}
                             ></View>
-                            {/* <GooglePlayButton
-                            text="加入会议"
-                            textColor="#fff"
-                            rippleColor="white"
-                            width={Dimensions.get('window').width - 60}
-                            /> */}
                             <GradientButton
                             text="加入会议"
                             textColor="#fff"
@@ -363,12 +348,6 @@ class WelcomePage extends AbstractWelcomePage {
                             <View
                             style={{height:16}}
                             ></View>
-                            {/* <Button
-                            style={[styless.buttonView,
-                            ]}
-                            color="rgba(6, 99, 163, 1)"
-                            title="登录"
-                            ></Button> */}
                             <GradientButton
                             text="登录"
                             fontSize={ 14 }
