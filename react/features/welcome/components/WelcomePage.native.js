@@ -8,11 +8,18 @@ import {
     TouchableOpacity,
     View,
     Button,
+    Image,
     StyleSheet,
-    Dimensions
+    Dimensions,
+    LayoutAnimation
 } from 'react-native';
 import { Button as GButton, GooglePlayButton } from "@freakycoder/react-native-button";
 import GradientButton from "./GradientButton"
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import Home from './Home'
+import LoginView from './LoginView'
+import JoinView from './JoinView'
 
 import { getName } from '../../app';
 
@@ -48,6 +55,12 @@ import WelcomePageSideBar from './WelcomePageSideBar';
  * @extends AbstractWelcomePage
  */
 class WelcomePage extends AbstractWelcomePage {
+    state = {
+        left: false,
+        login_left: false,
+        start_left: "100%",
+        join_left: false,
+    };
     /**
      * Constructor of the Component.
      *
@@ -68,6 +81,48 @@ class WelcomePage extends AbstractWelcomePage {
         this._onFieldBlur = this._onFieldFocusChange.bind(this, false);
         this._onFieldFocus = this._onFieldFocusChange.bind(this, true);
     }
+
+    /**
+     * Navigator 导航栏
+     */
+
+    /**
+     * 登录页面 Push&Pop
+     */
+    _pushToLogin = () => {
+        LayoutAnimation.spring();
+        this.setState({left: true})
+        this.setState({login_left: true})
+    }
+    _popFromLogin = () => {
+        LayoutAnimation.spring();
+        this.setState({left: false})
+        this.setState({login_left: false})
+    }
+    
+    /**
+     * 发起会议页面 Push&Pop
+     */
+    _pushToStart = (animationStatus) => {
+        LayoutAnimation.spring();
+        this.setState({left: true})
+        this.setState({start_left: 0})
+    }
+
+    /**
+     * 加入会议页面 Push&Pop
+     */
+    _pushToJoin = (animationStatus) => {
+        LayoutAnimation.spring();
+        this.setState({left: true})
+        this.setState({join_left: true})
+    }
+    _popFromJoin = () => {
+        LayoutAnimation.spring();
+        this.setState({left: false})
+        this.setState({join_left: false})
+    }
+
 
     /**
      * Implements React's {@link Component#componentDidMount()}. Invoked
@@ -303,67 +358,22 @@ class WelcomePage extends AbstractWelcomePage {
                     {/* 设置页面 */}
                     {/* <SettingsView />
                     <DialInSummary /> */}
-                    <View style = { [
-                        styless.titleView
-                    ] }>
-                        <View style={
-                            styless.containerTopView
-                        }>
-                            <Text style={ styless.titleText }>
-                                { "云会" }
-                            </Text>
-                            <Text style={ styless.contentText }>
-                                { "视频在线通话系统" }
-                            </Text>
-                        </View>
-
-                        <View style={styless.containerBottomView}>
-                            <GradientButton
-                            text="发起会议"
-                            textColor="rgba(6, 99, 163, 1)"
-                            fontSize={ 15 }
-                            gradientBegin="white"
-                            gradientEnd="white"
-                            radius={ 22 }
-                            width={ Dimensions.get('window').width - 60 }
-                            height={ 44 }
-                            onClick={ function () {
-                                alert('发起会议')
-                            } }
-                            ></GradientButton>
-                            <View
-                            style={{height:16}}
-                            ></View>
-                            <GradientButton
-                            text="加入会议"
-                            textColor="#fff"
-                            fontSize={ 15 }
-                            radius={ 22 }
-                            width={ Dimensions.get('window').width - 60 }
-                            height={ 44 }
-                            onClick={ function () {
-                                alert('加入会议')
-                            } }
-                            ></GradientButton>
-                            <View
-                            style={{height:16}}
-                            ></View>
-                            <GradientButton
-                            text="登录"
-                            fontSize={ 14 }
-                            textColor="#fff"
-                            gradientBegin="rgba(255,255,255,0)"
-                            gradientEnd="rgba(255,255,255,0)"
-                            textDecorationLine="underline"
-                            ></GradientButton>
-                            
-                            <Text
-                            style={{position:"absolute",bottom:40,color:"rgba(78, 88, 110, 1)",fontSize:12}}
-                            >
-                            {'All right reserved by 百视云'}
-                            </Text>
-                        </View>
-                    </View>
+                    <Home
+                    animationStart={ this.state.left }
+                    pushToLogin={this._pushToLogin}
+                    pushToJoin={this._pushToJoin}
+                    ></Home>
+                    {/* 模拟 模态推出页面 */}
+                    {/* 登录页 */}
+                    <LoginView 
+                    animationStart={ this.state.login_left }
+                    animationChanged={ this._popFromLogin }
+                    ></LoginView>
+                    {/* 加入会议页 */}
+                    <JoinView
+                    animationStart={ this.state.join_left }
+                    animationChanged={ this._popFromJoin }
+                    ></JoinView>
                 </View>
                 {/* 侧滑页面 */}
                 <WelcomePageSideBar />
@@ -423,6 +433,13 @@ const styless = StyleSheet.create({
         position: "absolute",
         width: "100%",
         height: "100%"
+    },
+    naviView: {
+        backgroundColor: "red",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        opacity: 0
     },
     containerTopView: {
         marginTop: 108,
